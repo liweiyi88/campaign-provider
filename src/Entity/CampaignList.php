@@ -89,7 +89,7 @@ class CampaignList
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Member", mappedBy="list")
+     * @ORM\OneToMany(targetEntity="App\Entity\Member", mappedBy="list", cascade={"remove"})
      */
     private $members;
 
