@@ -1,5 +1,5 @@
 # How to run locally?
-1. Eidting `MAILCHIMP_API_KEY` environment var in `.env` file
+1. Eidting `MAILCHIMP_API_KEY` and `MAILCHIMP_API_BASE_URI` environment vars in `.env` file
 2. Open `docker for mac`
 3. Run `make start`
 4. Run `docker ps` to get the container id, then use `docker exec -it [container_id] bash` to ssh into the container

@@ -6,7 +6,6 @@ use App\Campaign\Mailchimp;
 use App\Entity\Member;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -29,8 +28,8 @@ class UpdateMemberCommand extends Command
     {
         $this
             ->setDescription('Add a short description for your command')
-            ->addOption('old_email', null, InputOption::VALUE_NONE, 'Option description')
-            ->addOption('new_email', null, InputOption::VALUE_NONE, 'Option description')
+            ->addOption('old_email', null, InputOption::VALUE_REQUIRED, 'Option description')
+            ->addOption('new_email', null, InputOption::VALUE_REQUIRED, 'Option description')
         ;
     }
 
@@ -61,6 +60,6 @@ class UpdateMemberCommand extends Command
         $member->setSubscriberHash($response['id']);
         $this->entityManager->flush();
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $io->success('Member email has been updated');
     }
 }

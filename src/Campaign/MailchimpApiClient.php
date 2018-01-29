@@ -15,7 +15,7 @@ class MailchimpApiClient
         $this->apiKey = $apiKey;
     }
 
-    private function request($method, $uri, $body = null): array
+    private function request($method, $uri, $body = null): ?array
     {
         $response = null;
         if ($body) {
@@ -42,7 +42,7 @@ class MailchimpApiClient
         return $this->request('PATCH', 'lists/'.$listId, $list);
     }
 
-    public function removeList(string $listId): array
+    public function removeList(string $listId): ?array
     {
         return $this->request('DELETE', 'lists/'.$listId);
     }
@@ -57,7 +57,7 @@ class MailchimpApiClient
         return $this->request('PATCH', 'lists/'.$listId.'/members/'.$subscriberHash, $member);
     }
 
-    public function deleteListMember(string $listId, string $subscriberHash): array
+    public function deleteListMember(string $listId, string $subscriberHash): ?array
     {
         return $this->request('DELETE', 'lists/'.$listId.'/members/'.$subscriberHash);
     }
