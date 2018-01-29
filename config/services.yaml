@@ -2,6 +2,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    mailchimp_base_uri: '%env(MAILCHIMP_API_BASE_URI)%'
     mailchimp_api_key: '%env(MAILCHIMP_API_KEY)%'
 
 services:
@@ -31,3 +32,4 @@ services:
     App\Campaign\MailchimpApiClient:
         arguments:
             $apiKey: '%mailchimp_api_key%'
+            $baseUri: '%mailchimp_base_uri%'

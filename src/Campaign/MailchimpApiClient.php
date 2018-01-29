@@ -6,26 +6,25 @@ use GuzzleHttp\Client;
 
 class MailchimpApiClient
 {
-    const BASE_URI = 'https://us15.api.mailchimp.com/3.0/';
     private $guzzle;
     private $apiKey;
 
-    public function __construct(string $apiKey)
+    public function __construct(string $apiKey, string $baseUri)
     {
-        $this->guzzle = new Client(['base_uri' => static::BASE_URI]);
+        $this->guzzle = new Client(['base_uri' => $baseUri]);
         $this->apiKey = $apiKey;
     }
 
-    private function request($method, $uri, $body = null)
+    private function request($method, $uri, $body = null): array
     {
         $response = null;
         if ($body) {
-            $response = $this->guzzle->request($method,$uri, [
+            $response = $this->guzzle->request($method, $uri, [
                 'auth' => [null, $this->apiKey],
                 'json' => $body
             ]);
         } else {
-            $response = $this->guzzle->request($method,$uri, [
+            $response = $this->guzzle->request($method, $uri, [
                 'auth' => [null, $this->apiKey]
             ]);
         }
@@ -33,32 +32,32 @@ class MailchimpApiClient
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    public function createList(array $list)
+    public function createList(array $list): array
     {
         return $this->request('POST', 'lists', $list);
     }
 
-    public function updateList(string $listId, array $list)
+    public function updateList(string $listId, array $list): array
     {
         return $this->request('PATCH', 'lists/'.$listId, $list);
     }
 
-    public function removeList(string $listId)
+    public function removeList(string $listId): array
     {
         return $this->request('DELETE', 'lists/'.$listId);
     }
 
-    public function addNewListMember(string $listId, array $member)
+    public function addNewListMember(string $listId, array $member): array
     {
         return $this->request('POST', 'lists/'.$listId.'/members', $member);
     }
 
-    public function updateListMember(string $listId, string $subscriberHash, array $member)
+    public function updateListMember(string $listId, string $subscriberHash, array $member): array
     {
         return $this->request('PATCH', 'lists/'.$listId.'/members/'.$subscriberHash, $member);
     }
 
-    public function deleteListMember(string $listId, string $subscriberHash)
+    public function deleteListMember(string $listId, string $subscriberHash): array
     {
         return $this->request('DELETE', 'lists/'.$listId.'/members/'.$subscriberHash);
     }

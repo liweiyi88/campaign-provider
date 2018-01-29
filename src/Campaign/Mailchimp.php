@@ -14,32 +14,32 @@ class Mailchimp implements CampaignInterface
         $this->apiClient = $apiClient;
     }
 
-    public function createList(CampaignList $list)
+    public function createList(CampaignList $list): ?array
     {
         return $this->apiClient->createList($list->toArray());
     }
 
-    public function updateList(CampaignList $list)
+    public function updateList(CampaignList $list): ?array
     {
         return $this->apiClient->updateList($list->getListId(), $list->toArray());
     }
 
-    public function removeList(CampaignList $list)
+    public function removeList(CampaignList $list): ?array
     {
         return $this->apiClient->removeList($list->getListId());
     }
 
-    public function addMember(Member $member, CampaignList $list)
+    public function addMember(Member $member, CampaignList $list): ?array
     {
         return $this->apiClient->addNewListMember($list->getListId(), $member->toArray());
     }
 
-    public function updateMember(Member $member, CampaignList $list)
+    public function updateMember(Member $member, CampaignList $list): ?array
     {
         return $this->apiClient->updateListMember($list->getListId(), $member->getSubscriberHash(), $member->toArray());
     }
 
-    public function removeMember(Member $member, CampaignList $list)
+    public function removeMember(Member $member, CampaignList $list): ?array
     {
         return $this->apiClient->deleteListMember($list->getListId(), $member->getSubscriberHash());
     }
